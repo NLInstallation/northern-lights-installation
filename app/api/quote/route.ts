@@ -1,3 +1,5 @@
+import { supplyOptions } from "../../supply-options";
+
 const emailPattern = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 
 function customerThankYou() {
@@ -43,7 +45,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { name, email, phone = "", location, service, message = "", website } = fields;
+  const { name, email, phone = "", location, service, supplies = "", message = "", website } = fields;
   if (website) {
     return Response.json({ ok: true });
   }
@@ -53,6 +55,7 @@ export async function POST(request: Request) {
     typeof email !== "string" || email.length > 254 || !emailPattern.test(email) ||
     typeof phone !== "string" || phone.length > 50 ||
     typeof location !== "string" || !/^\d{5}(-\d{4})?$/.test(location) || /\s/.test(location) ||
+    typeof supplies !== "string" || (supplies !== "" && !supplyOptions.includes(supplies)) ||
     typeof service !== "string" || !service.trim() || service.length > 100 ||
     typeof message !== "string" || message.length > 3000
   ) {
@@ -86,6 +89,7 @@ export async function POST(request: Request) {
             `Phone: ${phone.trim() || "Not provided"}`,
             `Property ZIP code: ${location}`,
             `Service: ${service.trim()}`,
+            `Lights and décor supplied by: ${supplies || "Not specified"}`,
             "",
             message.trim() || "No project details provided.",
           ].join("\n"),

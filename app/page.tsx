@@ -1,5 +1,6 @@
 "use client";
 
+import { supplyOptions } from "./supply-options";
 import { FormEvent, useState } from "react";
 
 const services = [
@@ -10,6 +11,7 @@ const services = [
 ];
 
 const questions = [
+  ["Can you install lights and decorations I already own?", "Yes. We can install your lights and yard décor, supply items for your display, or combine both. Tell us what you already have so we can confirm what will work and include any additional materials in your estimate."],
   ["Do you work in my area?", "We serve Kansas City and surrounding communities. Include your property’s ZIP code in your request so we can confirm service at your property."],
   ["What should I include for an estimate?", "Tell us which parts of the property you’d like to light, any yard décor you have in mind, your preferred colors, and any date you have in mind. If you’re still deciding, choose “Not sure yet” on the form."],
   ["Can I send a photo of my property?", "Yes. Reply to your quote confirmation email with a photo from the street or a picture of a display you like."],
@@ -67,7 +69,7 @@ export default function Home() {
         <div className="hero-content">
           <p className="eyebrow">KANSAS CITY HOLIDAY INSTALLATION</p>
           <h1>Come home<br />to <em>the glow.</em></h1>
-          <p className="hero-copy">Holiday lighting and yard décor installation for Kansas City homes and businesses.</p>
+          <p className="hero-copy">Holiday lighting and yard décor installation for Kansas City homes and businesses. Use your own decorations or have us supply them.</p>
           <div className="hero-actions">
             <a className="button button-gold" href="#quote">Get a complimentary estimate</a>
             <a className="text-link" href="#services">Explore lights and décor</a>
@@ -150,6 +152,12 @@ export default function Home() {
                   <option>Holiday yard décor</option>
                   <option>Lighting and yard décor</option>
                   <option>Not sure yet</option>
+                </select>
+              </label>
+              <label>Who will supply the lights or décor?
+                <select name="supplies" defaultValue="">
+                  <option value="">Select an option (optional)</option>
+                  {supplyOptions.map((option) => <option key={option}>{option}</option>)}
                 </select>
               </label>
               <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Lighting or yard décor ideas, and any timing you have in mind…" /></label>
