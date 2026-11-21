@@ -3,8 +3,8 @@ import { supplyOptions } from "../../supply-options";
 const emailPattern = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 
 function customerThankYou(propertyZip: string) {
-  const subject = "Your estimate request was received";
-  const receipt = `Thanks for reaching out to Northern Lights Installation. We received your estimate request for the property in ZIP code ${propertyZip}.`;
+  const subject = "Thank you for your estimate request";
+  const receipt = `Thank you for requesting an estimate from Northern Lights Installation. We received your estimate request for the property in ZIP code ${propertyZip}.`;
   const nextStep = "We’ll review your project details and follow up about your estimate. You can reply here with any corrections or a photo of the property.";
   const signature = "Northern Lights Installation";
 
