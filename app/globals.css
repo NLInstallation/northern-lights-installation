@@ -140,3 +140,19 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 400; }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
 
 @media (min-width:761px) { .service-grid { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:42px; } .service-card img { aspect-ratio:2/1; } }
+
+.quote-form .discount-option {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+.discount-option input[type="checkbox"] {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  padding: 0;
+  accent-color: #28513e;
+}

@@ -69,7 +69,7 @@ export default function Home() {
         <div className="hero-content">
           <p className="eyebrow">KANSAS CITY HOLIDAY INSTALLATION</p>
           <h1>Come home<br />to <em>the glow.</em></h1>
-          <p className="hero-copy">Holiday lighting and yard décor installation for Kansas City homes and businesses. Use your own decorations or have us supply them.</p>
+          <p className="hero-copy">Holiday lighting and yard décor installation for Kansas City homes and businesses. Use your own decorations or have us supply them. We offer discounted rates for veterans.</p>
           <div className="hero-actions">
             <a className="button button-gold" href="#quote">Get a complimentary estimate</a>
             <a className="text-link" href="#services">Explore lights and décor</a>
@@ -161,6 +161,10 @@ export default function Home() {
                 </select>
               </label>
               <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Lighting or yard décor ideas, and any timing you have in mind…" /></label>
+              <label className="discount-option">
+                <input type="checkbox" name="veteranDiscount" value="requested" />
+                Request the veteran discount for my estimate
+              </label>
               <div hidden>
                 <label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label>
               </div>

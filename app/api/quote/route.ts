@@ -89,6 +89,7 @@ export async function POST(request: Request) {
             `Phone: ${phone.trim() || "Not provided"}`,
             `Property ZIP code: ${location}`,
             `Service: ${service.trim()}`,
+            ...(fields.veteranDiscount === "requested" ? ["Veteran discount requested: Yes"] : []),
             `Lights and décor supplied by: ${supplies || "Not specified"}`,
             "",
             message.trim() || "No project details provided.",
