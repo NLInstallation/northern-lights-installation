@@ -55,7 +55,7 @@ export default function Home() {
           <span className="brand-mark">✳</span>
           <span>NORTHERN LIGHTS <small>INSTALLATION</small></span>
         </a>
-        <nav>
+        <nav aria-label="Main navigation">
           <a href="#services">Lights &amp; décor</a>
           <a href="#faq">FAQ</a>
           <a className="nav-cta" href="#quote">Get an estimate</a>
@@ -133,11 +133,14 @@ export default function Home() {
           ) : (
             <>
               <div className="form-title">PROJECT DETAILS</div>
-              <label>Your name<input name="name" placeholder="Full name" maxLength={120} required /></label>
+              <label>Your name<input name="name" autoComplete="name" placeholder="Full name" maxLength={120} required /></label>
               <div className="form-row">
-                <label>Email address<input name="email" type="email" placeholder="you@example.com" maxLength={254} required /></label>
-                <label>Phone number (optional)<input name="phone" type="tel" placeholder="(555) 555-5555" maxLength={50} /></label>
+                <label>Email address<input name="email" autoComplete="email" type="email" placeholder="you@example.com" maxLength={254} required /></label>
+                <label>Phone number (optional)<input name="phone" autoComplete="tel" type="tel" placeholder="(555) 555-5555" maxLength={50} /></label>
               </div>
+              <label>Property city or ZIP code (optional)
+                <input name="location" placeholder="e.g. Overland Park or 66204" maxLength={100} />
+              </label>
               <label>What are you looking for?
                 <select name="service" value={selectedService} onChange={(event) => setSelectedService(event.target.value)} required>
                   <option value="" disabled>Select a service</option>
@@ -149,7 +152,7 @@ export default function Home() {
                   <option>Not sure yet</option>
                 </select>
               </label>
-              <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Your city or ZIP, lighting or yard décor ideas, and any timing you have in mind…" /></label>
+              <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Lighting or yard décor ideas, and any timing you have in mind…" /></label>
               <div hidden>
                 <label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label>
               </div>
