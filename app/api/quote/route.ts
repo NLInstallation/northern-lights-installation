@@ -2,40 +2,23 @@ import { supplyOptions } from "../../supply-options";
 
 const emailPattern = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 
-function customerThankYou() {
-  const heading = "Thanks for requesting a quote!";
-  const nextStep = "We’ve received your holiday lighting or décor request. We’ll review the details you shared and follow up with you about your estimate.";
-  const photoTip = "If you have a photo of your property or a holiday display you love, reply to this email with it. It’ll help us picture what you have in mind.";
-  const brand = "Northern Lights Installation";
+function customerThankYou(propertyZip: string) {
+  const subject = "Your estimate request was received";
+  const receipt = `Thanks for reaching out to Northern Lights Installation. We received your estimate request for the property in ZIP code ${propertyZip}.`;
+  const nextStep = "We’ll review your project details and follow up about your estimate. You can reply here with any corrections or a photo of the property.";
+  const signature = "Northern Lights Installation";
 
   return {
-    subject: "Thanks for requesting a quote from Northern Lights Installation",
-    text: [heading, nextStep, photoTip, brand].join("\n\n"),
+    subject,
+    text: [receipt, nextStep, signature].join("\n\n"),
     html: `<!doctype html>
-      <html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-      <body style="margin:0;background:#f3f0e8;color:#203b32;font-family:Arial,Helvetica,sans-serif">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f0e8">
-        <tr><td align="center" style="padding:24px 12px">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fffdf7;text-align:left">
-            <tr><td bgcolor="#153c32" style="padding:32px 28px;background:#153c32;border-top:4px solid #c4a465">
-              <p style="margin:0 0 6px;color:#f2dab0;font:30px Georgia,serif">Northern Lights</p>
-              <p style="margin:0;color:#fffaf0;font:12px Arial,sans-serif;letter-spacing:3px">INSTALLATION</p>
-            </td></tr>
-            <tr><td style="padding:32px 28px 20px">
-              <h1 style="margin:0 0 16px;color:#153c32;font:32px/1.15 Georgia,serif">${heading}</h1>
-              <p style="margin:0;color:#30463d;font:16px/1.6 Arial,sans-serif">${nextStep}</p>
-            </td></tr>
-            <tr><td style="padding:0 28px 32px">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-                <td bgcolor="#f2eee3" style="padding:18px 20px;border-left:3px solid #b69a60;color:#30463d;font:15px/1.6 Arial,sans-serif">${photoTip}</td>
-              </tr></table>
-            </td></tr>
-            <tr><td style="border-top:1px solid #ded8c8;padding:18px 28px;color:#4c5f54;font:13px/1.6 Arial,sans-serif">
-              <a href="https://www.northernlightsinstallation.com/" style="color:#28513e">${brand}</a><br>Kansas City and surrounding communities
-            </td></tr>
-          </table>
-        </td></tr>
-      </table></body></html>`,
+      <html lang="en"><body style="margin:0;padding:24px;color:#203b32;font:16px/1.6 Arial,Helvetica,sans-serif">
+        <div style="max-width:560px;border-top:3px solid #c4a465">
+          <p>${receipt}</p>
+          <p>${nextStep}</p>
+          <p style="color:#153c32;font-family:Georgia,serif">${signature}</p>
+        </div>
+      </body></html>`,
   };
 }
 
@@ -99,7 +82,7 @@ export async function POST(request: Request) {
           from: sender,
           to: [email],
           reply_to: quoteInbox,
-          ...customerThankYou(),
+          ...customerThankYou(location),
         },
       ]),
       signal: AbortSignal.timeout(10000),
