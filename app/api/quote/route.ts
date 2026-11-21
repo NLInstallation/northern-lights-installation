@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { name, email, phone = "", location = "", service, message = "", website } = fields;
+  const { name, email, phone = "", location, service, message = "", website } = fields;
   if (website) {
     return Response.json({ ok: true });
   }
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     typeof name !== "string" || !name.trim() || name.length > 120 ||
     typeof email !== "string" || email.length > 254 || !emailPattern.test(email) ||
     typeof phone !== "string" || phone.length > 50 ||
-    typeof location !== "string" || location.length > 100 || /[\r\n]/.test(location) ||
+    typeof location !== "string" || !/^\d{5}(-\d{4})?$/.test(location) || /\s/.test(location) ||
     typeof service !== "string" || !service.trim() || service.length > 100 ||
     typeof message !== "string" || message.length > 3000
   ) {
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
             `Name: ${name.trim()}`,
             `Email: ${email}`,
             `Phone: ${phone.trim() || "Not provided"}`,
-            `Property city or ZIP: ${location.trim() || "Not provided"}`,
+            `Property ZIP code: ${location}`,
             `Service: ${service.trim()}`,
             "",
             message.trim() || "No project details provided.",

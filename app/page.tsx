@@ -10,7 +10,7 @@ const services = [
 ];
 
 const questions = [
-  ["Do you work in my area?", "We serve Kansas City and surrounding communities. Include your city or ZIP code in your request so we can confirm service at your property."],
+  ["Do you work in my area?", "We serve Kansas City and surrounding communities. Include your property’s ZIP code in your request so we can confirm service at your property."],
   ["What should I include for an estimate?", "Tell us which parts of the property you’d like to light, any yard décor you have in mind, your preferred colors, and any date you have in mind. If you’re still deciding, choose “Not sure yet” on the form."],
   ["Can I send a photo of my property?", "Yes. Reply to your quote confirmation email with a photo from the street or a picture of a display you like."],
   ["Does requesting an estimate reserve an installation?", "The estimate starts the conversation. We’ll review the design, pricing, and scheduling with you before you book."],
@@ -138,8 +138,8 @@ export default function Home() {
                 <label>Email address<input name="email" autoComplete="email" type="email" placeholder="you@example.com" maxLength={254} required /></label>
                 <label>Phone number (optional)<input name="phone" autoComplete="tel" type="tel" placeholder="(555) 555-5555" maxLength={50} /></label>
               </div>
-              <label>Property city or ZIP code (optional)
-                <input name="location" placeholder="e.g. Overland Park or 66204" maxLength={100} />
+              <label>Property ZIP code (required)
+                <input name="location" autoComplete="postal-code" placeholder="e.g. 66204" pattern="[0-9]{5}(-[0-9]{4})?" title="Enter a 5-digit ZIP code or ZIP+4, such as 66204 or 66204-1234." maxLength={10} required />
               </label>
               <label>What are you looking for?
                 <select name="service" value={selectedService} onChange={(event) => setSelectedService(event.target.value)} required>
