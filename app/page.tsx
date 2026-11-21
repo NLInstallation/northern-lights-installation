@@ -65,7 +65,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="home">
-        <img className="hero-photo" src="/lighting/kansas-city-skyline.jpg" alt="Union Station glows beneath the Kansas City skyline at dusk." fetchPriority="high" />
+        <img className="hero-photo" src="/lighting/roofline.webp" alt="" fetchPriority="high" />
         <div className="hero-content">
           <p className="eyebrow">YEAR-ROUND INSTALLATION IN KANSAS CITY</p>
           <h1>Lights for<br /><em>every holiday.</em></h1>
