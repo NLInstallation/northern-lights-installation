@@ -65,11 +65,11 @@ export default function Home() {
       </header>
 
       <section className="hero" id="home">
-        <img className="hero-photo" src="/lighting/roofline.webp" alt="" fetchPriority="high" />
+        <img className="hero-photo" src="/lighting/kansas-city-plaza-christmas.webp" alt="Christmas lights outline the storefronts and tower at Kansas City’s Country Club Plaza." fetchPriority="high" />
         <div className="hero-content">
-          <p className="eyebrow">KANSAS CITY HOLIDAY INSTALLATION</p>
-          <h1>Come home<br />to <em>the glow.</em></h1>
-          <p className="hero-copy">Holiday lighting and yard décor installation for Kansas City homes and businesses. Use your own decorations or have us supply them. We offer discounted rates for veterans.</p>
+          <p className="eyebrow">YEAR-ROUND INSTALLATION IN KANSAS CITY</p>
+          <h1>Lights for<br /><em>every holiday.</em></h1>
+          <p className="hero-copy">We install holiday lighting and yard décor for Kansas City homes and businesses all year long. Use your own decorations or have us supply them. We offer discounted rates for veterans.</p>
           <div className="hero-actions">
             <a className="button button-gold" href="#quote">Get a complimentary estimate</a>
             <a className="text-link" href="#services">Explore lights and décor</a>
@@ -80,7 +80,7 @@ export default function Home() {
       <section className="services section-wrap" id="services">
         <div className="section-heading">
           <h2>Holiday lights <em>&amp; yard décor.</em></h2>
-          <p>Find a look for your roofline, storefront, entrance, or lawn. These concept images illustrate design possibilities.</p>
+          <p>Picture a red, white, and blue roofline for the Fourth of July, a purple porch for Halloween, or a warm Christmas glow. Browse the winter design concepts below.</p>
         </div>
         <div className="service-grid">
           {services.map((service) => (
@@ -160,7 +160,7 @@ export default function Home() {
                   {supplyOptions.map((option) => <option key={option}>{option}</option>)}
                 </select>
               </label>
-              <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Lighting or yard décor ideas, and any timing you have in mind…" /></label>
+              <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="Which holiday are you celebrating? Tell us your colors, display ideas, and preferred dates…" /></label>
               <label className="discount-option">
                 <input type="checkbox" name="veteranDiscount" value="requested" />
                 Request the veteran discount for my estimate
@@ -186,7 +186,7 @@ export default function Home() {
         <a className="brand footer-brand" href="#home"><span className="brand-mark">✳</span><span>NORTHERN LIGHTS <small>INSTALLATION</small></span></a>
         <span>Holiday lighting and yard décor in Kansas City.</span>
         <a href="#home">BACK TO TOP ↑</a>
-        <small className="copyright">© {new Date().getFullYear()} Northern Lights Installation. All rights reserved.</small>
+        <small className="copyright">© {new Date().getFullYear()} Northern Lights Installation. All rights reserved.<br />Plaza photograph by <a href="https://commons.wikimedia.org/wiki/File:Country_Club_Plaza_Panorama_Dec_2013.jpg">Sandover</a>, resized and cropped for display under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</small>
       </footer>
     </main>
   );
