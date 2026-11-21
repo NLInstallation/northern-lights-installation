@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Northern Lights Installation | Kansas City Holiday Lighting",
+  title: "Northern Lights Installation | Kansas City Holiday Lighting & Yard Décor",
   description:
-    "Premium holiday lighting installation for homes and businesses throughout the Kansas City area. Request a complimentary estimate.",
+    "Holiday lighting and yard décor installation for homes and businesses throughout the Kansas City area. Request a complimentary estimate.",
 };
 
 export default function RootLayout({

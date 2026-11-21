@@ -2,8 +2,8 @@ const emailPattern = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 
 function customerThankYou() {
   const heading = "Thanks for requesting a quote!";
-  const nextStep = "We’ve received your holiday lighting request. We’ll review the details you shared and follow up with you about your estimate.";
-  const photoTip = "If you have a photo of your property or a lighting display you love, reply to this email with it. It’ll help us picture what you have in mind.";
+  const nextStep = "We’ve received your holiday lighting or décor request. We’ll review the details you shared and follow up with you about your estimate.";
+  const photoTip = "If you have a photo of your property or a holiday display you love, reply to this email with it. It’ll help us picture what you have in mind.";
   const brand = "Northern Lights Installation";
 
   return {
