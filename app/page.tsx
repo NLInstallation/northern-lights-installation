@@ -22,10 +22,33 @@ const services = [
 
 export default function Home() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendFailed, setSendFailed] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSent(true);
+    if (sending) return;
+
+    const fields = Object.fromEntries(new FormData(event.currentTarget));
+    setSendFailed(false);
+    setSending(true);
+
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      if (response.ok) {
+        setSent(true);
+      } else {
+        setSendFailed(true);
+      }
+    } catch {
+      setSendFailed(true);
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -119,21 +142,21 @@ export default function Home() {
           <p>Tell us a little about your project. We’ll be in touch to discuss the next step.</p>
           <div className="quote-aside">NORTHERN LIGHTS INSTALLATION <span>·</span> KANSAS CITY</div>
         </div>
-        <form className="quote-form" onSubmit={handleSubmit}>
+        <form className="quote-form" action="/api/quote" method="post" onSubmit={handleSubmit} aria-busy={sending}>
           {sent ? (
-            <div className="success-message">
+            <div className="success-message" role="status">
               <span className="success-icon">✓</span>
               <h3>Thanks for reaching out.</h3>
-              <p>Your form is working as a front-end preview. Before launch, we’ll connect it to your business email so submissions are delivered to you.</p>
+              <p>We received your estimate request and will be in touch about your project.</p>
               <button type="button" className="text-link" onClick={() => setSent(false)}>Send another request ↗</button>
             </div>
           ) : (
             <>
               <div className="form-title">REQUEST AN ESTIMATE <span>01 — 04</span></div>
-              <label>Your name<input name="name" placeholder="Full name" required /></label>
+              <label>Your name<input name="name" placeholder="Full name" maxLength={120} required /></label>
               <div className="form-row">
-                <label>Email address<input name="email" type="email" placeholder="you@example.com" required /></label>
-                <label>Phone number<input name="phone" type="tel" placeholder="(555) 555-5555" /></label>
+                <label>Email address<input name="email" type="email" placeholder="you@example.com" maxLength={254} required /></label>
+                <label>Phone number<input name="phone" type="tel" placeholder="(555) 555-5555" maxLength={50} /></label>
               </div>
               <label>What are you looking for?
                 <select name="service" defaultValue="" required>
@@ -144,8 +167,18 @@ export default function Home() {
                   <option>Not sure yet</option>
                 </select>
               </label>
-              <label>Tell us about your project<textarea name="message" rows={3} placeholder="A little about your property and the look you have in mind…" /></label>
-              <button className="button button-gold submit-button" type="submit">Send estimate request <span>↗</span></button>
+              <label>Tell us about your project<textarea name="message" rows={3} maxLength={3000} placeholder="A little about your property and the look you have in mind…" /></label>
+              <div hidden>
+                <label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label>
+              </div>
+              <button className="button button-gold submit-button" type="submit" disabled={sending}>
+                {sending ? "Sending…" : "Send estimate request"} <span>↗</span>
+              </button>
+              {sendFailed && (
+                <p role="alert">
+                  We couldn’t send your request. Please try again in a moment.
+                </p>
+              )}
               <p className="form-footnote">No obligation. Just a conversation about your project.</p>
             </>
           )}
