@@ -65,7 +65,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="home">
-        <img className="hero-photo" src="/lighting/kansas-city-plaza-christmas.webp" alt="Christmas lights outline the storefronts and tower at Kansas City’s Country Club Plaza." fetchPriority="high" />
+        <img className="hero-photo" src="/lighting/kansas-city-skyline.jpg" alt="Union Station glows beneath the Kansas City skyline at dusk." fetchPriority="high" />
         <div className="hero-content">
           <p className="eyebrow">YEAR-ROUND INSTALLATION IN KANSAS CITY</p>
           <h1>Lights for<br /><em>every holiday.</em></h1>
@@ -186,7 +186,7 @@ export default function Home() {
         <a className="brand footer-brand" href="#home"><span className="brand-mark">✳</span><span>NORTHERN LIGHTS <small>INSTALLATION</small></span></a>
         <span>Holiday lighting and yard décor in Kansas City.</span>
         <a href="#home">BACK TO TOP ↑</a>
-        <small className="copyright">© {new Date().getFullYear()} Northern Lights Installation. All rights reserved.<br />Plaza photograph by <a href="https://commons.wikimedia.org/wiki/File:Country_Club_Plaza_Panorama_Dec_2013.jpg">Sandover</a>, resized and cropped for display under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</small>
+        <small className="copyright">© {new Date().getFullYear()} Northern Lights Installation. All rights reserved.</small>
       </footer>
     </main>
   );
