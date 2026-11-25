@@ -1,11 +1,18 @@
 import { supplyOptions } from "../../supply-options";
 
+import zipCoverage from "./zip-coverage.json";
+
+// 2025 Census Gazetteer ZCTA representative points, classified by great-circle
+// distance from 66102 (100 miles inclusive). Each ZIP3 row is indexed by ZIP2.
+// I = inside, O = outside, and missing or ? = manual review.
+const coverageByPrefix: Record<string, string> = zipCoverage;
+
 const emailPattern = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 
-function customerThankYou(propertyZip: string) {
+function customerThankYou(propertyZip: string, outside: boolean) {
   const subject = "Thank you for your estimate request";
   const receipt = `Thank you for requesting an estimate from Northern Lights Installation. We received your estimate request for the property in ZIP code ${propertyZip}.`;
-  const nextStep = "We’ll review your project details and follow up about your estimate. You can reply here with any corrections or a photo of the property.";
+  const nextStep = outside ? "You’ll also receive a note about service availability for this ZIP code." : "We’ll review your project details and follow up about your estimate. You can reply here with any corrections or a photo of the property.";
   const signature = "Northern Lights Installation";
 
   return {
@@ -53,6 +60,10 @@ export async function POST(request: Request) {
     return Response.json({ error: "Quote delivery is unavailable." }, { status: 503 });
   }
 
+  const zip = location.slice(0, 5);
+  const coverage = coverageByPrefix[zip.slice(0, 3)]?.[Number(zip.slice(3))];
+  const outside = coverage === "O";
+
   try {
     const delivery = await fetch("https://api.resend.com/emails/batch", {
       method: "POST",
@@ -71,6 +82,7 @@ export async function POST(request: Request) {
             `Email: ${email}`,
             `Phone: ${phone.trim() || "Not provided"}`,
             `Property ZIP code: ${location}`,
+            `Service area: ${outside ? "Outside the 100-mile radius" : coverage === "I" ? "Within the 100-mile radius" : "ZIP not located — please review"}`,
             `Service: ${service.trim()}`,
             ...(fields.veteranDiscount === "requested" ? ["Veteran discount requested: Yes"] : []),
             `Lights and décor supplied by: ${supplies || "Not specified"}`,
@@ -82,8 +94,20 @@ export async function POST(request: Request) {
           from: sender,
           to: [email],
           reply_to: quoteInbox,
-          ...customerThankYou(location),
+          ...customerThankYou(location, outside),
         },
+        ...(outside ? [{
+          from: sender,
+          to: [email],
+          reply_to: quoteInbox,
+          subject: "Service availability for your property",
+          text: [
+            "Thanks for considering Northern Lights Installation.",
+            `We currently install within 100 miles of Kansas City, Kansas (66102). Based on the ZIP code you entered (${zip}), your property appears to be outside our service area, so we’re unable to schedule an installation there at this time.`,
+            "If the ZIP code was entered incorrectly or your property is near the boundary, reply with the property location and we’ll double-check it for you.",
+            "Christopher Gray\nNorthern Lights Installation",
+          ].join("\n\n"),
+        }] : []),
       ]),
       signal: AbortSignal.timeout(10000),
     });
