@@ -162,3 +162,47 @@ h1 em, h2 em { color: var(--gold-light); font-weight: 400; }
   .footer { grid-template-columns: 1fr; justify-items: start; padding: 28px var(--gutter); gap: 9px; }
   .copyright { width: 100%; }
 }
+
+/* A translucent gold tint keeps the label legible over both photos and cream. */
+.button-gold, .site-header .nav-cta, .success-message button.text-link {
+  background: radial-gradient(ellipse at 20% 0%, #fff9dc9c, transparent 58%),
+    linear-gradient(160deg, #f6e5bcea, #d9b77dda 54%, #e3c897ed);
+  color: #1b211c;
+  border: 1px solid #fff0c9c9;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 1px #fffffff2, inset 0 -2px 3px #805e3340,
+    0 3px 9px #171b1729;
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  backdrop-filter: blur(14px) saturate(135%);
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.site-header .nav-cta, .success-message button.text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  text-align: center;
+}
+@media (hover: hover) {
+  :is(.button-gold, .site-header .nav-cta, .success-message button.text-link):hover:not(:disabled) {
+    box-shadow: inset 0 2px 4px white, inset 0 -1px 2px #805e3338, 0 4px 12px #171b1733;
+  }
+}
+:is(.button-gold, .site-header .nav-cta, .success-message button.text-link):active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px #805e333d, inset 0 -1px 1px #fff4d4;
+}
+.button-gold:disabled { opacity: .7; cursor: wait; }
+@media (max-width: 760px) {
+  .site-header .nav-cta { padding-inline: 12px; }
+  .site-header nav { padding-block: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.button-gold, .site-header .nav-cta, .success-message button.text-link) {
+    transition: none;
+  }
+  :is(.button-gold, .site-header .nav-cta, .success-message button.text-link):active:not(:disabled) {
+    transform: none;
+  }
+}
