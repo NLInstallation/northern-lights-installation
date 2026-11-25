@@ -18,6 +18,20 @@ const questions = [
   ["Does requesting an estimate reserve an installation?", "The estimate starts the conversation. We’ll review the design, pricing, and scheduling with you before you book."],
 ];
 
+function BrandBulb() {
+  return (
+    <svg width="30" height="44" viewBox="0 0 48 72" fill="var(--gold-light, #e2c891)" aria-hidden="true" focusable="false">
+      {/* The open star and initials let the header or footer color show through. */}
+      <path fillRule="evenodd" d="M24 1C18 8 2 25 2 39c0 9 5 15 11 20h22c6-5 11-11 11-20C46 25 30 8 24 1Z
+        M24 12l1.6 5.7 5.3 1.6-5.3 1.5L24 26l-1.6-5.2-5.3-1.5 5.3-1.6Z
+        M8 47V30h4.4l8.1 10.3V30H25v17h-4.2l-8.3-10.5V47Z
+        M28 30h4.8v12.7H40V47H28Z" />
+      <rect x="14" y="61" width="20" height="4" rx="1.5" />
+      <rect x="16" y="67" width="16" height="4" rx="1.5" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [selectedService, setSelectedService] = useState("");
   const [sent, setSent] = useState(false);
@@ -54,7 +68,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#home" aria-label="Northern Lights Installation home">
-          <span className="brand-mark">✳</span>
+          <BrandBulb />
           <span>NORTHERN LIGHTS <small>INSTALLATION</small></span>
         </a>
         <nav aria-label="Main navigation">
@@ -183,7 +197,7 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <a className="brand footer-brand" href="#home"><span className="brand-mark">✳</span><span>NORTHERN LIGHTS <small>INSTALLATION</small></span></a>
+        <a className="brand footer-brand" href="#home"><BrandBulb /><span>NORTHERN LIGHTS <small>INSTALLATION</small></span></a>
         <span>Holiday lighting and yard décor in Kansas City.</span>
         <a href="#home">BACK TO TOP ↑</a>
         <small className="copyright">© {new Date().getFullYear()} Northern Lights Installation. All rights reserved.</small>
