@@ -3,7 +3,7 @@ import { supplyOptions } from "../../supply-options";
 import zipCoverage from "./zip-coverage.json";
 
 // 2025 Census Gazetteer ZCTA representative points, classified by great-circle
-// distance from 66102 (100 miles inclusive). Each ZIP3 row is indexed by ZIP2.
+// distance from 66102 (75 miles inclusive). Each ZIP3 row is indexed by ZIP2.
 // I = inside, O = outside, and missing or ? = manual review.
 const coverageByPrefix: Record<string, string> = zipCoverage;
 
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
             `Email: ${email}`,
             `Phone: ${phone.trim() || "Not provided"}`,
             `Property ZIP code: ${location}`,
-            `Service area: ${outside ? "Outside the 100-mile radius" : coverage === "I" ? "Within the 100-mile radius" : "ZIP not located — please review"}`,
+            `Service area: ${outside ? "Outside the 75-mile radius" : coverage === "I" ? "Within the 75-mile radius" : "ZIP not located — please review"}`,
             `Service: ${service.trim()}`,
             ...(fields.veteranDiscount === "requested" ? ["Veteran discount requested: Yes"] : []),
             `Lights and décor supplied by: ${supplies || "Not specified"}`,
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
           subject: "Service availability for your property",
           text: [
             "Thanks for considering Northern Lights Installation.",
-            `We currently install within 100 miles of Kansas City, Kansas (66102). Based on the ZIP code you entered (${zip}), your property appears to be outside our service area, so we’re unable to schedule an installation there at this time.`,
+            `We currently install within 75 miles of Kansas City, Kansas (66102). Based on the ZIP code you entered (${zip}), your property appears to be outside our service area, so we’re unable to schedule an installation there at this time.`,
             "If the ZIP code was entered incorrectly or your property is near the boundary, reply with the property location and we’ll double-check it for you.",
             "Christopher Gray\nNorthern Lights Installation",
           ].join("\n\n"),
